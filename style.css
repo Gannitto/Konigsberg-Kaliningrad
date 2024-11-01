@@ -1,0 +1,116 @@
+﻿/* Основные стили */
+body {
+	background-color: #ffffff;
+	color: #ffffff;
+	font-family: 'Press Start 2P', cursive;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #000f;
+}
+
+p {
+	font-size: 16px;
+	line-height: 1.6;
+	color: #000f;
+}
+
+/* Контейнер для контента */
+.content {
+	margin: 40px;
+	padding: 20px;
+	background-color: #99ccff;
+	border-radius: 10px;
+	border: 4px solid #0094ff;
+}
+
+	.content h1 {
+		font-size: 24px;
+		margin-bottom: 20px;
+		color: #000f;
+	}
+
+	.content p {
+		font-size: 16px;
+		line-height: 1.6;
+		color: #000f;
+	}
+
+/* Кнопка скачивания/просмотра */
+.download-button {
+	display: inline-block;
+	background-color: #00aa00;
+	color: #333333;
+	padding: 10px 20px;
+	margin-top: 20px;
+	font-size: 16px;
+	text-decoration: none;
+	border-radius: 8px;
+	border: 4px solid #0094ff;
+	box-shadow: 0 4px #333333;
+}
+
+	.download-button:hover {
+		background-color: #009c00;
+	}
+
+/* Подвал */
+footer {
+	background-color: #333333;
+	padding: 10px;
+	border-top: 4px solid #00aa00;
+	margin-top: 40px;
+}
+
+	footer p {
+		font-size: 14px;
+		margin: 5px;
+	}
+
+.navbar {
+	background-color: #1e1e1e;
+	padding: 15px 20px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 5%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 100;
+	border-bottom: 4px solid #0094ff;
+}
+
+.left-links {
+	display: flex;
+}
+
+.right-links .nav-link {
+	margin-left: 20px;
+	margin-right: 30px;
+}
+
+.nav-link {
+	color: white;
+	text-decoration: none;
+	margin-right: 20px;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+}
+
+	.nav-link i {
+		margin-right: 8px; /* Отступ для иконок */
+	}
+
+	.nav-link:hover {
+		background-color: #00aa00;
+		border-radius: 5px;
+		padding: 10px;
+		transition: background-color 0.3s ease;
+	}

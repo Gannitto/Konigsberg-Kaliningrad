@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="style.css">
+	<title>Проектная работа</title>
+</head>
+<body>
+	<!-- Верхняя панель-->
+	<div class="navbar">
+		<div class="left-links">
+			<a href="#" class="nav-link">Интересные факты</a>
+			<a href="#" class="nav-link">Викторина</a>
+			<a href="#" class="nav-link">Угадай место</a>
+		</div>
+		<div class="right-links">
+			<img src="KML logo.jpeg" style="width: auto; height: 50px" class="nav-link">
+		</div>
+	</div>
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<!-- Основной контент -->
+	<div class="content">
+		<h1>Викторина</h1>
+		<p>Ответь на следующие вопросы, чтобы проверить свои знания!</p>
+
+		<!-- Контейнер для викторины -->
+		<div class="quiz-container">
+
+			<!-- Вопрос 1 -->
+			<div class="quiz-content content">
+				<div class="quiz-question">
+					Вопрос 1: Какого цвета небо?
+				</div>
+				<ul class="quiz-options">
+					<li><button onclick="checkAnswer(this, true)">Синего</button></li>
+					<li><button onclick="checkAnswer(this, false)">Зеленого</button></li>
+					<li><button onclick="checkAnswer(this, false)">Красного</button></li>
+				</ul>
+			</div>
+
+			<!-- Вопрос 2 -->
+			<div class="quiz-content content">
+				<div class="quiz-question">
+					Вопрос 2: Сколько ног у паука?
+				</div>
+				<ul class="quiz-options">
+					<li><button onclick="checkAnswer(this, false)">6</button></li>
+					<li><button onclick="checkAnswer(this, true)">8</button></li>
+					<li><button onclick="checkAnswer(this, false)">10</button></li>
+				</ul>
+			</div>
+
+			<!-- Результат -->
+			<div class="result" id="result"></div>
+		</div>
+
+		<!-- Кнопка для перезапуска викторины -->
+		<a href="#" class="download-button" onclick="resetQuiz()">Пройти заново</a>
+	</div>
+
+	<!-- Подвал -->
+	<footer>
+		<p>&copy; 2024 Моя Викторина. Все права защищены.</p>
+	</footer>
+
+	<!-- JavaScript для обработки ответов -->
+	<script>
+		let correctAnswers = 0;
+
+		function checkAnswer(button, isCorrect) {
+			const questionBlock = button.closest('.quiz-content'); // Находим блок с вопросом
+
+			if (isCorrect) {
+				correctAnswers++;
+				questionBlock.classList.add('correct-answer'); // Выделяем весь блок зелёным цветом
+			} else {
+				questionBlock.classList.add('wrong-answer'); // Выделяем весь блок красным цветом
+			}
+
+			// Отключаем все кнопки в данном вопросе
+			button.parentElement.querySelectorAll('button').forEach(btn => btn.disabled = true);
+
+			// Показать результат, если все вопросы завершены
+			const allButtons = document.querySelectorAll('.quiz-options button');
+			const answeredButtons = Array.from(allButtons).filter(btn => btn.disabled);
+			if (answeredButtons.length === allButtons.length) {
+				document.getElementById('result').textContent = `Вы ответили правильно на ${correctAnswers} из ${allButtons.length / 3} вопросов!`;
+			}
+		}
+
+		function resetQuiz() {
+			correctAnswers = 0;
+			document.getElementById('result').textContent = "";
+			const buttons = document.querySelectorAll('.quiz-options button');
+			const questionBlocks = document.querySelectorAll('.quiz-content');
+
+			// Сбрасываем стили и отключение кнопок
+			buttons.forEach(button => {
+				button.disabled = false;
+				button.style.backgroundColor = "#00aa00";
+			});
+
+			// Убираем выделение блоков
+			questionBlocks.forEach(block => {
+				block.classList.remove('correct-answer');
+				block.classList.remove('wrong-answer');
+			});
+		}
+	</script>
+</body>
+</html>
