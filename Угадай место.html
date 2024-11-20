@@ -95,7 +95,7 @@
 	<div class="content" id="startScreen">
 		<h1>Добро пожаловать в игру "Угадай место на карте"</h1>
 		<p>У вас будет 10 панорам от Google maps. Все места находятся в Калининградской области. Выберите правильное место из трех вариантов.</p>
-		<button onclick="startGame()">Начать игру</button>
+		<button class="button" onclick="startGame()">Начать игру</button>
 	</div>
 
 	<!-- Основной контент -->
@@ -109,13 +109,13 @@
 		</div>
 
 		<div class="options" id="options">
-			<button onclick="checkAnswer(0)">Вариант 1</button>
-			<button onclick="checkAnswer(1)">Вариант 2</button>
-			<button onclick="checkAnswer(2)">Вариант 3</button>
+			<button class="button" onclick="checkAnswer(0)">Вариант 1</button>
+			<button class="button" onclick="checkAnswer(1)">Вариант 2</button>
+			<button class="button" onclick="checkAnswer(2)">Вариант 3</button>
 		</div>
 		<div class="result" id="result"></div>
 		<div class="next-button" id="nextButton">
-			<button onclick="nextPanorama()">Продолжить</button>
+			<button class="button" onclick="nextPanorama()">Продолжить</button>
 		</div>
 	</div>
 
