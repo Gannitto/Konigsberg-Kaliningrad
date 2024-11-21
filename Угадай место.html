@@ -175,7 +175,7 @@
 				resultDiv.style.color = "green";
 				rightAnswers++;
 			} else {
-				resultDiv.textContent = "Неправильно!";
+				resultDiv.textContent = `Неправильно! Ответ - ${options[currentIndex][panoramas[currentIndex].correct]}`;
 				resultDiv.style.color = "red";
 			}
             document.querySelectorAll(".options button").forEach(btn => btn.disabled = true);

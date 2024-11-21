@@ -24,94 +24,123 @@
 	<br>
 	<br>
 
-	<!-- Основной контент -->
-	<div class="content">
+	<!-- Кнопка для перезапуска викторины -->
+	<a href="#" class="download-button" onclick="resetQuiz()">Пройти заново</a>
+
+
+	<div class="content" id="startScreen">
 		<h1>Викторина</h1>
-		<p>Ответь на следующие вопросы, чтобы проверить свои знания!</p>
-
-		<!-- Контейнер для викторины -->
-		<div class="quiz-container">
-
-			<!-- Вопрос 1 -->
-			<div class="quiz-content content">
-				<div class="quiz-question">
-					Вопрос 1: Какого цвета небо?
-				</div>
-				<ul class="quiz-options">
-					<li><button onclick="checkAnswer(this, true)">Синего</button></li>
-					<li><button onclick="checkAnswer(this, false)">Зеленого</button></li>
-					<li><button onclick="checkAnswer(this, false)">Красного</button></li>
-				</ul>
-			</div>
-
-			<!-- Вопрос 2 -->
-			<div class="quiz-content content">
-				<div class="quiz-question">
-					Вопрос 2: Сколько ног у паука?
-				</div>
-				<ul class="quiz-options">
-					<li><button onclick="checkAnswer(this, false)">6</button></li>
-					<li><button onclick="checkAnswer(this, true)">8</button></li>
-					<li><button onclick="checkAnswer(this, false)">10</button></li>
-				</ul>
-			</div>
-
-			<!-- Результат -->
-			<div class="result" id="result"></div>
-		</div>
-
-		<!-- Кнопка для перезапуска викторины -->
-		<a href="#" class="download-button" onclick="resetQuiz()">Пройти заново</a>
+		<p>Ответьте на следующие вопросы по теме Калининградской области, чтобы проверить свои знания!</p>
+		<p>*Все вопросы составлялись по данным 2024 года</p>
+		<button class="button" onclick="startGame()">Начать викторину</button>
 	</div>
 
-	<!-- Подвал -->
-	<footer>
-		<p>&copy; 2024 Моя Викторина. Все права защищены.</p>
-	</footer>
+	<!-- Основной контент -->
 
-	<!-- JavaScript для обработки ответов -->
+	<div class="content" id="gameContainer">
+
+		<h1 id="question-num"></h1>
+		<p id="question"></p>
+
+		<div class="answers" id="answers">
+			<button class="button" onclick="checkAnswer(0)">Вариант 1</button>
+			<button class="button" onclick="checkAnswer(1)">Вариант 2</button>
+			<button class="button" onclick="checkAnswer(2)">Вариант 3</button>
+		</div>
+		<div class="result" id="result"></div>
+		<div class="next-button" id="nextButton">
+			<button class="button" onclick="nextQuestion()">Продолжить</button>
+		</div>
+	</div>
+
+	<div class="content" id="EndScreen">
+		<h1>Игра завершена, спасибо за участние!</h1>
+		<p id="right_answers"></p>
+	</div>
+
 	<script>
-		let correctAnswers = 0;
 
-		function checkAnswer(button, isCorrect) {
-			const questionBlock = button.closest('.quiz-content'); // Находим блок с вопросом
+		document.getElementById("gameContainer").style.display = "none";
+		document.getElementById("EndScreen").style.display = "none";
 
-			if (isCorrect) {
-				correctAnswers++;
-				questionBlock.classList.add('correct-answer'); // Выделяем весь блок зелёным цветом
+		// Массив вопросов и ответов
+
+		const questions_nums = [
+            "Вопрос 1", "Вопрос 2", "Вопрос 3", "Вопрос 4", "Вопрос 5", 
+		]
+
+        const questions = [
+            { text: "Вопрос 1", correct: 0 },
+            { text: "Вопрос 2", correct: 0 },
+            { text: "Вопрос 3", correct: 0 },
+            { text: "Вопрос 4", correct: 0 },
+            { text: "Вопрос 5", correct: 0 },
+		];
+
+        const answers = [
+            ["Ответ 1", "Ответ 2", "Ответ 3"],
+            ["Ответ 1", "Ответ 2", "Ответ 3"],
+            ["Ответ 1", "Ответ 2", "Ответ 3"],
+            ["Ответ 1", "Ответ 2", "Ответ 3"],
+			["Ответ 1", "Ответ 2", "Ответ 3"],
+		];
+
+		let currentIndex = 0;
+		let rightAnswers = 0;
+
+		function startGame() {
+			document.getElementById("startScreen").style.display = "none";
+			document.getElementById("gameContainer").style.display = "block";
+			loadQuestion();
+		}
+
+        function loadQuestion() {
+            document.getElementById("question-num").textContent = questions_nums[currentIndex];
+            document.getElementById("question").textContent = questions[currentIndex].text;
+			const buttons = document.querySelectorAll(".answers button");
+			buttons.forEach((btn, index) => {
+				btn.textContent = answers[currentIndex][index];
+				btn.disabled = false;
+			});
+			document.getElementById("result").textContent = "";
+			document.getElementById("nextButton").style.display = "none";
+		}
+
+		function checkAnswer(selectedIndex) {
+
+			const resultDiv = document.getElementById("result");
+			if (selectedIndex === questions[currentIndex].correct) {
+				resultDiv.textContent = "Правильно!";
+				resultDiv.style.color = "green";
+				rightAnswers++;
 			} else {
-				questionBlock.classList.add('wrong-answer'); // Выделяем весь блок красным цветом
+                resultDiv.textContent = `Неправильно! Ответ - ${answers[currentIndex][questions[currentIndex].correct]}`
+				resultDiv.style.color = "red";
 			}
+			document.querySelectorAll(".answers button").forEach(btn => btn.disabled = true);
+			document.getElementById("nextButton").style.display = "block";
+			document.getElementById("answers").style.display = "none";
+		}
 
-			// Отключаем все кнопки в данном вопросе
-			button.parentElement.querySelectorAll('button').forEach(btn => btn.disabled = true);
-
-			// Показать результат, если все вопросы завершены
-			const allButtons = document.querySelectorAll('.quiz-options button');
-			const answeredButtons = Array.from(allButtons).filter(btn => btn.disabled);
-			if (answeredButtons.length === allButtons.length) {
-				document.getElementById('result').textContent = `Вы ответили правильно на ${correctAnswers} из ${allButtons.length / 3} вопросов!`;
+		function nextQuestion() {
+			currentIndex++;
+			if (currentIndex < questions.length) {
+				document.getElementById("answers").style.display = "block";
+                loadQuestion();
+			} else {
+				document.getElementById("EndScreen").style.display = "block";
+				document.getElementById("gameContainer").style.display = "none";
+				let right_answers_word = "a"
+				if (rightAnswers === 0) { right_answers_word = "правильных ответов" }
+				else if (rightAnswers === 1) { right_answers_word = "правильный ответ" }
+				else if (rightAnswers < 5) { right_answers_word = "правильных ответа" }
+				if (4 < rightAnswers) { right_answers_word = "правильных ответов" }
+				document.getElementById("right_answers").textContent = "Вы ответили на " + rightAnswers + " " + right_answers_word + " из 10";
 			}
 		}
 
-		function resetQuiz() {
-			correctAnswers = 0;
-			document.getElementById('result').textContent = "";
-			const buttons = document.querySelectorAll('.quiz-options button');
-			const questionBlocks = document.querySelectorAll('.quiz-content');
-
-			// Сбрасываем стили и отключение кнопок
-			buttons.forEach(button => {
-				button.disabled = false;
-				button.style.backgroundColor = "#00aa00";
-			});
-
-			// Убираем выделение блоков
-			questionBlocks.forEach(block => {
-				block.classList.remove('correct-answer');
-				block.classList.remove('wrong-answer');
-			});
-		}
+		// Загрузка первой панорамы при открытии
+		loadQuestion();
 	</script>
 </body>
 </html>
