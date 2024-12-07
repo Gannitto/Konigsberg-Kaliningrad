@@ -20,11 +20,11 @@
 			padding: 20px;
 		}
 
-        .map-container {
-            position: relative;
-            width: 100%;
-            height: 400px;
-        }
+		.map-container {
+			position: relative;
+			width: 100%;
+			height: 400px;
+		}
 
 		iframe {
 			width: 80%;
@@ -32,15 +32,15 @@
 			border: none;
 		}
 
-        .cover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px; /* Высота белого прямоугольника */
-            background-color: white;
-            z-index: 2;
-        }
+		.cover {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 60px; /* Высота белого прямоугольника */
+			background-color: white;
+			z-index: 2;
+		}
 
 		.options {
 			display: flex;
@@ -126,24 +126,34 @@
 
 	<script>
 
-        document.getElementById("gameContainer").style.display = "none";
-        document.getElementById("EndScreen").style.display = "none";
+		document.getElementById("gameContainer").style.display = "none";
+		document.getElementById("EndScreen").style.display = "none";
 
 		// Массив панорам и вариантов
 		const panoramas = [
-            { url: "https://www.google.com/maps/embed?pb=!4v1732715855697!6m8!1m7!1sCAoSLEFGMVFpcFB6Y3pfVVhkZDJ0ODBRNzNITE9UalBhTkMwYXNlV3ZUNVdLRklf!2m2!1d54.9597732606661!2d20.48255643468437!3f353.35375188275464!4f-11.204867611823673!5f0.4000000000000002", correct: 1 },
-            { url: "https://www.google.com/maps/embed?pb=!4v1732716178344!6m8!1m7!1sCAoSLEFGMVFpcE5fY0Q2NzFPdlBZY2RfOHNzNDdrR1NDenB6YnFHV0pNWjZzT2pv!2m2!1d54.69734100397057!2d20.49428697638168!3f94.40869739419725!4f18.052352237301932!5f0.4000000000000002", correct: 0 },
-            { url: "https://www.google.com/maps/embed?pb=!4v1732718470373!6m8!1m7!1sCAoSLEFGMVFpcE1ERHpBZTZRWEh0b1ZZTGsteDFKc3A0RjYtQkNPRG1nUjl3QUdU!2m2!1d54.72233191185831!2d20.52303484909535!3f129.98729467738082!4f0.4516726389242933!5f0.4000000000000002", correct: 2 },
-            { url: "https://www.google.com/maps/embed?pb=!4v1732718939489!6m8!1m7!1sevL--x8MvwHperXbH1p_0g!2m2!1d54.69729235730756!2d20.49488299367035!3f188.6720377082985!4f5.636037570774221!5f0.5016902273964707", correct: 2 },
-            { url: "", correct: 1 },
+			{ url: "https://www.google.com/maps/embed?pb=!4v1732715855697!6m8!1m7!1sCAoSLEFGMVFpcFB6Y3pfVVhkZDJ0ODBRNzNITE9UalBhTkMwYXNlV3ZUNVdLRklf!2m2!1d54.9597732606661!2d20.48255643468437!3f353.35375188275464!4f-11.204867611823673!5f0.4000000000000002", correct: 1 },
+			{ url: "https://www.google.com/maps/embed?pb=!4v1732716178344!6m8!1m7!1sCAoSLEFGMVFpcE5fY0Q2NzFPdlBZY2RfOHNzNDdrR1NDenB6YnFHV0pNWjZzT2pv!2m2!1d54.69734100397057!2d20.49428697638168!3f94.40869739419725!4f18.052352237301932!5f0.4000000000000002", correct: 0 },
+			{ url: "https://www.google.com/maps/embed?pb=!4v1732718470373!6m8!1m7!1sCAoSLEFGMVFpcE1ERHpBZTZRWEh0b1ZZTGsteDFKc3A0RjYtQkNPRG1nUjl3QUdU!2m2!1d54.72233191185831!2d20.52303484909535!3f129.98729467738082!4f0.4516726389242933!5f0.4000000000000002", correct: 2 },
+			{ url: "https://www.google.com/maps/embed?pb=!4v1732718939489!6m8!1m7!1sevL--x8MvwHperXbH1p_0g!2m2!1d54.69729235730756!2d20.49488299367035!3f188.6720377082985!4f5.636037570774221!5f0.5016902273964707", correct: 2 },
+			{ url: "https://www.google.com/maps/embed?pb=!4v1733592849575!6m8!1m7!1sCAoSLEFGMVFpcE5Yd3lnel9ZaW9pZEdhQWxteFpBMVBKZUF6U0loT2VWbWhqR21B!2m2!1d55.08294465789038!2d21.90457031474953!3f158.48898893788746!4f16.344939162676255!5f0.7820865974627469", correct: 1 },
+			{ url: "https://www.google.com/maps/embed?pb=!4v1733601118506!6m8!1m7!1sCAoSLEFGMVFpcFBmMUxJaVljeDZxT2FleTlMeHg0bzdvWTRJV2Q5WmxCT0IzdC10!2m2!1d55.08139110274215!2d21.88891532150885!3f53.20406809122771!4f-1.6381397672901983!5f0.7820865974627469", correct: 2 },
+            { url: "https://www.google.com/maps/embed?pb=!4v1733601526034!6m8!1m7!1sCAoSLEFGMVFpcE15Nlhmcnpyb0dQSjlFRHRkZks5bGRsM3U2ZlJOaERaSERLNl9V!2m2!1d54.64353099731836!2d19.88683361877059!3f347.3897268105121!4f1.5547405664884337!5f1.7966397563673229", correct: 2 },
+            { url: "https://www.google.com/maps/embed?pb=!4v1733602201606!6m8!1m7!1sCAoSLEFGMVFpcFBPRlBjZWNuRDFMYlprTzJXMDFCUHZxczVzYzVNQjR2b0tzN0Y3!2m2!1d54.63741889721466!2d19.87785399388112!3f263.9193746809957!4f7.838600910662848!5f0.7820865974627469", correct: 0 },
+            { url: "https://www.google.com/maps/embed?pb=!4v1733602728710!6m8!1m7!1sCAoSLEFGMVFpcE5zQ1dFdjZobmZBM2dfc1R1TU5PRUoyNDdpU3V0OVBBd2ZSa3lF!2m2!1d54.57748680097128!2d22.10311415655955!3f254.4144612085961!4f-15.332532659509837!5f1.5077554574995262", correct: 1 },
+            { url: "https://www.google.com/maps/embed?pb=!4v1733603133708!6m8!1m7!1sCAoSLEFGMVFpcE9pR1BjdENURFlwci05QzhhU1ZiUW1qczl6Vi1oRUdyMUxnLW8z!2m2!1d54.6253853069772!2d19.88613116859708!3f2.1234686190220797!4f14.037554566620742!5f0.7820865974627469", correct: 0 },
 		];
 
 		const options = [
 			["Пожарная смотровая вышка", 'Музей кошек "Муррариум"', "Водонапорная башня Калинина"],
-            ["Бранденбургские ворота", "Замок Кёниг", "3 форт"],
-            ["Ресторан Базилик", "Музей изобразитнльных исскуств", "Музей янтаря"],
-            ['Кафе "У Канта"', "Центральные ворота", "Музей марципана"],
-            ["Место 7", "Место 8", "Место 9"],
+			["Бранденбургские ворота", "Замок Кёниг", "3 форт"],
+			["Ресторан Базилик", "Музей изобразитнльных исскуств", "Музей янтаря"],
+			['Кафе "У Канта"', "Центральные ворота", "Музей марципана"],
+			["Мост Победы", "Мост королевы Луизы", "Янтарный мост"],
+            ['Скульптура "Лось". Светлогорск', 'Скульптура "Лось". Знаменск', 'Скульптура "Лось". Советск'],
+            ["Немецкое военное убежище", "15 форт", 'Крепость "Пиллау"'],
+            ['Форт "Западный"', "Кёнигсбергская береговая линия защиты", 'Замок "Бальга"'],
+            ["Горбатый мост", "Мост советов", "Мост Балька Германа"],
+            ["Ангар. Балтийская коса", "Ангар. Правдинск", "Ангар. Куршская коса"]
 		];
 
 		let currentIndex = 0;
@@ -151,7 +161,7 @@
 
 		function startGame() {
 			document.getElementById("startScreen").style.display = "none";
-            document.getElementById("brs").style.display = "none";
+			document.getElementById("brs").style.display = "none";
 			document.getElementById("gameContainer").style.display = "block";
 			loadPanorama();
 		}
@@ -164,7 +174,7 @@
 				btn.disabled = false;
 			});
 			document.getElementById("result").textContent = "";
-            document.getElementById("nextButton").style.display = "none";
+			document.getElementById("nextButton").style.display = "none";
 		}
 
 		function checkAnswer(selectedIndex) {
@@ -178,22 +188,22 @@
 				resultDiv.textContent = `Неправильно! Ответ - ${options[currentIndex][panoramas[currentIndex].correct]}`;
 				resultDiv.style.color = "red";
 			}
-            document.querySelectorAll(".options button").forEach(btn => btn.disabled = true);
-            document.getElementById("nextButton").style.display = "block";
-            document.getElementById("options").style.display = "none";
+			document.querySelectorAll(".options button").forEach(btn => btn.disabled = true);
+			document.getElementById("nextButton").style.display = "block";
+			document.getElementById("options").style.display = "none";
 		}
 
 		function nextPanorama() {
 			currentIndex++;
-            if (currentIndex < panoramas.length) {
-                document.getElementById("options").style.display = "block";
+			if (currentIndex < panoramas.length) {
+				document.getElementById("options").style.display = "block";
 				loadPanorama();
 			} else {
-                document.getElementById("brs").style.display = "block";
-                document.getElementById("EndScreen").style.display = "block";
+				document.getElementById("brs").style.display = "block";
+				document.getElementById("EndScreen").style.display = "block";
 				document.getElementById("gameContainer").style.display = "none";
-                let right_answers_word = "a"
-                if (rightAnswers === 0) { right_answers_word = "правильных ответов" }
+				let right_answers_word = "a"
+				if (rightAnswers === 0) { right_answers_word = "правильных ответов" }
 				else if (rightAnswers === 1) { right_answers_word = "правильный ответ" }
 				else if (rightAnswers < 5) { right_answers_word = "правильных ответа" }
 				if (4 < rightAnswers) { right_answers_word = "правильных ответов" }

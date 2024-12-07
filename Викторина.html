@@ -37,21 +37,26 @@
 
 	<!-- Основной контент -->
 
-	<div class="content" id="gameContainer">
+    <div class="content" id="gameContainer">
 
-		<h1 id="question-num"></h1>
-		<p id="question"></p>
+        <h1 id="question-num"></h1>
+        <p id="question"></p>
 
-		<div class="answers" id="answers">
-			<button class="button" onclick="checkAnswer(0)">Вариант 1</button>
-			<button class="button" onclick="checkAnswer(1)">Вариант 2</button>
-			<button class="button" onclick="checkAnswer(2)">Вариант 3</button>
-		</div>
-		<div class="result" id="result"></div>
-		<div class="next-button" id="nextButton">
-			<button class="button" onclick="nextQuestion()">Продолжить</button>
-		</div>
-	</div>
+        <div id="images_for_7" class="image-container">
+            <img src="1.png" width="100" height="150">
+            <img src="2.png" width="100" height="150">
+            <img src="3.png" width="100" height="150">
+        </div>
+        <div class="answers" id="answers">
+            <button class="button" onclick="checkAnswer(0)">Вариант 1</button>
+            <button class="button" onclick="checkAnswer(1)">Вариант 2</button>
+            <button class="button" onclick="checkAnswer(2)">Вариант 3</button>
+        </div>
+        <div class="result" id="result"></div>
+        <div class="next-button" id="nextButton">
+            <button class="button" onclick="nextQuestion()">Продолжить</button>
+        </div>
+    </div>
 
 	<div class="content" id="EndScreen">
 		<h1>Игра завершена, спасибо за участние!</h1>
@@ -65,30 +70,31 @@
 
 		// Массив вопросов и ответов
 
-		const questions_nums = [
-            "Вопрос 1", "Вопрос 2", "Вопрос 3", "Вопрос 4", "Вопрос 5", "Вопрос 6", "Вопрос 7"
-		]
-
-        const questions = [
-            { text: "Сколько городов в Калининградской области?", correct: 0 },
-            { text: "Какая площадь у Калининградской области?", correct: 2 },
-            { text: "Какое население Калининградской области?", correct: 2 },
-            { text: "В каком году Куршскую Косу признали национальным парком?", correct: 0 },
-            { text: "Сколько немецких фортов в Калининградской области?", correct: 1 },
-            { text: "В каком городе находится карьер по добыче янтаря?", correct: 0 },
-            { text: "Какой герб у Калининградской области?", correct: 0 },
-            { text: " у Калининградской области?", correct: 0 },
+		const questions = [
+			{ text: "Сколько городов в Калининградской области?", correct: 0 },
+			{ text: "Какая площадь у Калининградской области?", correct: 2 },
+			{ text: "Какое население Калининградской области?", correct: 2 },
+			{ text: "В каком году Куршскую Косу признали национальным парком?", correct: 0 },
+			{ text: "Сколько немецких фортов в Калининградской области?", correct: 1 },
+			{ text: "В каком городе находится карьер по добыче янтаря?", correct: 0 },
+			{ text: "Какой герб у Калининградской области?", correct: 0 },
+            { text: "Какой философ является одним из символов Калининградской области?", correct: 1 },
+            { text: "Какая длина Куршской Косы?", correct: 2 },
+            { text: "Сколько заливов в Калининградской области?", correct: 1 }
 
 		];
 
-        const answers = [
-            ["22", "31", "16"],
-            ["7 000 км²", "40 000 км²", "15 100 км²"],
-            ["1 800 000 человек", "60 000 человек", "1 100 000 человек"],
-            ["1987", "2003", "1993"],
-            ["21", "15", "8"],
+		const answers = [
+			["22", "31", "16"],
+			["7 000 км²", "40 000 км²", "15 100 км²"],
+			["1 800 000 человек", "60 000 человек", "1 100 000 человек"],
+			["1987", "2003", "1993"],
+			["21", "15", "8"],
 			["Янтарный", "Балтийск", "Советск"],
-			[]
+			["1", "2", "3"],
+            ["Карл Маркс", "Иммануил Кант", "Юрген Хабермас"],
+            ["160 км", "52 км", "98 км"],
+            ["3", "2", "5"]
 		];
 
 		let currentIndex = 0;
@@ -100,15 +106,15 @@
 			loadQuestion();
 		}
 
-        function loadQuestion() {
-            document.getElementById("question-num").textContent = questions_nums[currentIndex];
-            document.getElementById("question").textContent = questions[currentIndex].text;
+		function loadQuestion() {
+			document.getElementById("question-num").textContent = `Вопрос ${currentIndex}`;
+			document.getElementById("question").textContent = questions[currentIndex].text;
 			const buttons = document.querySelectorAll(".answers button");
-			if (s\) {
-			
-			}
+			document.getElementById("images_for_7").style.display = "none";
+			if (currentIndex === 6) { document.getElementById("images_for_7").style.display = "block" }
+
 			buttons.forEach((btn, index) => {
-				btn.textContent = answers[currentIndex][index];
+				btn.textContent = answers[currentIndex][index]
 				btn.disabled = false;
 			});
 			document.getElementById("result").textContent = "";
@@ -123,7 +129,7 @@
 				resultDiv.style.color = "green";
 				rightAnswers++;
 			} else {
-                resultDiv.textContent = `Неправильно! Ответ - ${answers[currentIndex][questions[currentIndex].correct]}`
+				resultDiv.textContent = `Неправильно! Ответ - ${answers[currentIndex][questions[currentIndex].correct]}`
 				resultDiv.style.color = "red";
 			}
 			document.querySelectorAll(".answers button").forEach(btn => btn.disabled = true);
@@ -135,7 +141,7 @@
 			currentIndex++;
 			if (currentIndex < questions.length) {
 				document.getElementById("answers").style.display = "block";
-                loadQuestion();
+				loadQuestion();
 			} else {
 				document.getElementById("EndScreen").style.display = "block";
 				document.getElementById("gameContainer").style.display = "none";

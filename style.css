@@ -113,3 +113,12 @@ footer {
 	.button:hover {
 		background-color: #62a3e4;
 	}
+
+.image-container {
+	white-space: nowrap; /* Запрет переноса на новую строку */
+}
+
+.image-container img {
+	display: inline-block;
+	margin-right: 10px; /* Отступ между изображениями */
+}
