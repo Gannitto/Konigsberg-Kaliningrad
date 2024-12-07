@@ -66,23 +66,29 @@
 		// Массив вопросов и ответов
 
 		const questions_nums = [
-            "Вопрос 1", "Вопрос 2", "Вопрос 3", "Вопрос 4", "Вопрос 5", 
+            "Вопрос 1", "Вопрос 2", "Вопрос 3", "Вопрос 4", "Вопрос 5", "Вопрос 6", "Вопрос 7"
 		]
 
         const questions = [
-            { text: "Вопрос 1", correct: 0 },
-            { text: "Вопрос 2", correct: 0 },
-            { text: "Вопрос 3", correct: 0 },
-            { text: "Вопрос 4", correct: 0 },
-            { text: "Вопрос 5", correct: 0 },
+            { text: "Сколько городов в Калининградской области?", correct: 0 },
+            { text: "Какая площадь у Калининградской области?", correct: 2 },
+            { text: "Какое население Калининградской области?", correct: 2 },
+            { text: "В каком году Куршскую Косу признали национальным парком?", correct: 0 },
+            { text: "Сколько немецких фортов в Калининградской области?", correct: 1 },
+            { text: "В каком городе находится карьер по добыче янтаря?", correct: 0 },
+            { text: "Какой герб у Калининградской области?", correct: 0 },
+            { text: " у Калининградской области?", correct: 0 },
+
 		];
 
         const answers = [
-            ["Ответ 1", "Ответ 2", "Ответ 3"],
-            ["Ответ 1", "Ответ 2", "Ответ 3"],
-            ["Ответ 1", "Ответ 2", "Ответ 3"],
-            ["Ответ 1", "Ответ 2", "Ответ 3"],
-			["Ответ 1", "Ответ 2", "Ответ 3"],
+            ["22", "31", "16"],
+            ["7 000 км²", "40 000 км²", "15 100 км²"],
+            ["1 800 000 человек", "60 000 человек", "1 100 000 человек"],
+            ["1987", "2003", "1993"],
+            ["21", "15", "8"],
+			["Янтарный", "Балтийск", "Советск"],
+			[]
 		];
 
 		let currentIndex = 0;
@@ -98,6 +104,9 @@
             document.getElementById("question-num").textContent = questions_nums[currentIndex];
             document.getElementById("question").textContent = questions[currentIndex].text;
 			const buttons = document.querySelectorAll(".answers button");
+			if (s\) {
+			
+			}
 			buttons.forEach((btn, index) => {
 				btn.textContent = answers[currentIndex][index];
 				btn.disabled = false;
