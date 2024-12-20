@@ -26,7 +26,6 @@
 	<br>
 
 	<!-- Кнопка для перезапуска викторины -->
-	<a href="#" class="download-button" onclick="resetQuiz()">Пройти заново</a>
 
 
 	<div class="content" id="startScreen">
@@ -108,7 +107,7 @@
 		}
 
 		function loadQuestion() {
-			document.getElementById("question-num").textContent = `Вопрос ${currentIndex}`;
+			document.getElementById("question-num").textContent = `Вопрос ${currentIndex + 1}`;
 			document.getElementById("question").textContent = questions[currentIndex].text;
 			const buttons = document.querySelectorAll(".answers button");
 			document.getElementById("images_for_7").style.display = "none";
